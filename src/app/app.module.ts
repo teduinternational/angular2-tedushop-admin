@@ -10,6 +10,8 @@ import { ProductCategoryComponent } from './components/product-category/product-
 import { HomeComponent } from './components/home/home.component';
 import { SidebarMenuComponent } from './shared/sidebar-menu/sidebar-menu.component';
 import { TopMenuComponent } from './shared/top-menu/top-menu.component';
+import { CourseComponent } from './components/course/course.component';
+import { LoginComponent } from './components/login/login.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,7 +26,9 @@ const appRoutes: Routes = [
     ProductCategoryComponent,
     HomeComponent,
     SidebarMenuComponent,
-    TopMenuComponent
+    TopMenuComponent,
+    CourseComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

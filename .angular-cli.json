@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "adminapp"
+    "name": "adminapp",
+    "ejected": false
   },
   "apps": [
     {
@@ -21,7 +22,6 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
-        "../src/assets/css/maps/jquery-jvectormap-2.0.3.css",
         "../src/assets/css/custom.css",
         "styles.css"
       ],
@@ -30,21 +30,7 @@
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "../node_modules/fastclick/lib/fastclick.js",
         "../node_modules/nprogress/nprogress.js",
-        "../node_modules/Chart.js/dist/Chart.min.js",
-        "../node_modules/jquery-sparkline/jquery.sparkline.min.js",
-        "../node_modules/Flot/jquery.flot.js",
-        "../node_modules/Flot/jquery.flot.pie.js",
-        "../node_modules/Flot/jquery.flot.time.js",
-        "../node_modules/Flot/jquery.flot.stack.js",
-        "../node_modules/Flot/jquery.flot.resize.js",
-        "../src/assets/js/flot/jquery.flot.orderBars.js",
-         "../src/assets/js/flot/date.js",
-        "../src/assets/js/flot/jquery.flot.spline.js",
-        "../src/assets/js/flot/curvedLines.js",
-        "../src/assets/js/moment/moment.min.js",
-        "../src/assets/js/datepicker/daterangepicker.js",
-         "../src/assets/js/custom.js",
-         "../src/assets/js/home.js"
+        "../src/assets/js/custom.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

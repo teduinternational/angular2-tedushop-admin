@@ -66,3 +66,6 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  * Needed for: All but Chrome, Firefox, Edge, IE11 and Safari 10
  */
 // import 'intl';  // Run `npm install --save intl`.
+
+// Now, within any of the app files (ES2015 style)
+import * as $ from 'jquery';
