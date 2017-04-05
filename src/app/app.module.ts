@@ -5,35 +5,20 @@ import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ProductComponent } from './components/product/product.component';
-import { ProductCategoryComponent } from './components/product-category/product-category.component';
-import { HomeComponent } from './components/home/home.component';
-import { SidebarMenuComponent } from './shared/sidebar-menu/sidebar-menu.component';
-import { TopMenuComponent } from './shared/top-menu/top-menu.component';
-import { CourseComponent } from './components/course/course.component';
-import { LoginComponent } from './components/login/login.component';
-
-const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'product', component: ProductComponent },
-  { path: 'product-category', component: ProductCategoryComponent }
-];
+import {LoginModule} from './login/login.module';
+import {MainModule} from './main/main.module';
+import { appRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ProductComponent,
-    ProductCategoryComponent,
-    HomeComponent,
-    SidebarMenuComponent,
-    TopMenuComponent,
-    CourseComponent,
-    LoginComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    LoginModule,
+    MainModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],

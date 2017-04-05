@@ -68,4 +68,4 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 // import 'intl';  // Run `npm install --save intl`.
 
 // Now, within any of the app files (ES2015 style)
-import * as $ from 'jquery';
+//import * as $ from 'jquery';
