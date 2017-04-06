@@ -10,7 +10,6 @@ export class AppComponent implements AfterViewInit {
   constructor(private elementRef: ElementRef) {
 
   }
-  title = 'app works!';
   ngAfterViewInit() {
     var s = document.createElement("script");
     s.type = "text/javascript";
