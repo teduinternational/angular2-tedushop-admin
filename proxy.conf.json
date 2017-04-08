@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "http://5854d76c1167031200ab4230.mockapi.io",
+        "target": "http://localhost:5001",
         "secure": false,
         "pathRewrite": {
             "^/api": ""

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {NotificationService} from '../core/services/notification.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private notificationService : NotificationService) { }
 
   ngOnInit() {
+    this.notificationService.printSuccessMessage('Alo');
   }
 
 }
