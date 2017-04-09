@@ -18,7 +18,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     var s = document.createElement("script");
     s.type = "text/javascript";
-    s.src = "../assets/js/custom.js";
+    s.src = "../src/assets/js/custom.js";
     this.elementRef.nativeElement.appendChild(s);
   }
 }

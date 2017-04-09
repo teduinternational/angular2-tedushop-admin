@@ -32,8 +32,7 @@
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "../node_modules/fastclick/lib/fastclick.js",
         "../node_modules/nprogress/nprogress.js",
-        "../node_modules/alertifyjs/build/alertify.js",
-        "../src/assets/js/custom.js"
+        "../node_modules/alertifyjs/build/alertify.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
