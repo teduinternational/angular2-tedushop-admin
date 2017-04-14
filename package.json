@@ -32,7 +32,6 @@
     "jquery": "~3.2.1",
     "jquery-sparkline": "~2.4.0",
     "moment": "~2.18.1",
-    "nprogress": "~0.2.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4",
     "alertifyjs": "~1.9.0"
