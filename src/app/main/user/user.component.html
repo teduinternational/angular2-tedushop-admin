@@ -27,25 +27,31 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Mã</th>
             <th>Họ tên</th>
             <th>Tài khoản</th>
             <th>Email</th>
+            <td>Ngày sinh</td>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of users">
-            <td scope="row">{{item.id}}</td>
-            <td>{{item.fullName}}</td>
-            <td>{{item.userName}}</td>
-            <td>{{item.email}}</td>
+            <td>{{item.FullName}}</td>
+            <td>{{item.UserName}}</td>
+            <td>{{item.Email}}</td>
+            <td>{{item.BirthDay | date}}</td>
+            <td>
+              <button class="btn btn-primary"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+
+              <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </td>
           </tr>
 
         </tbody>
       </table>
       <div class="col-md-12">
-        <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow" [(ngModel)]="pageIndex" class="pagination-sm" previousText="&lsaquo;"
-          nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+        <pagination [boundaryLinks]="true" [itemsPerPage]="pageSize" (pageChanged)="pageChanged($event)" [totalItems]="totalRow"
+          [(ngModel)]="pageIndex" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
       </div>
     </div>
   </div>
