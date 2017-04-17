@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +20,7 @@ import { AuthGuard } from './core/guards/auth.guard';
     BrowserModule,
     FormsModule,
     HttpModule,
+    PaginationModule.forRoot(),
     LoginModule,
     MainModule,
     RouterModule.forRoot(appRoutes)

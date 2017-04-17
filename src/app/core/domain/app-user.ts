@@ -6,6 +6,7 @@ export class AppUser {
         this.email = email;
         this.avatar = avatar;
     }
+    public id: string;
     public access_token: string;
     public username: string;
     public fullName: string;
