@@ -1,37 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { AppUser } from '../../core/domain/app-user';
-
+import { UserService } from '../../core/services/user.service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  public totalItems: number = 64;
-  public currentPage: number = 4;
-  public smallnumPages: number = 0;
-
+  public totalRow: number;
+  public pageIndex: number = 1;
+  public pageSize: number = 20;
+  public pageDisplay: number = 10;
+  public filter: string;
 
   public users: AppUser[];
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.users = [
-      { id: '12', avatar: "", email: "12", fullName: "Toan", username: "toanbn", access_token: "" },
-      { id: '12', avatar: "", email: "12", fullName: "Toan", username: "toanbn", access_token: "" },
-      { id: '12', avatar: "", email: "12", fullName: "Toan", username: "toanbn", access_token: "" },
-      { id: '12', avatar: "", email: "12", fullName: "Toan", username: "toanbn", access_token: "" },
-      { id: '12', avatar: "", email: "12", fullName: "Toan", username: "toanbn", access_token: "" },
-      { id: '12', avatar: "", email: "12", fullName: "Toan", username: "toanbn", access_token: "" },
-      { id: '12', avatar: "", email: "12", fullName: "Toan", username: "toanbn", access_token: "" },
-    ]
+    this.userService.getAllPaging(this.pageIndex, this.pageSize, this.filter).subscribe((response: any) => {
+      this.users = response.Items;
+      this.pageIndex = response.PageIndex;
+      console.log(response);
+    }, error => {
+      console.log(error);
+    });
   }
   public setPage(pageNo: number): void {
-    this.currentPage = pageNo;
+    this.pageIndex = pageNo;
   }
 
   public pageChanged(event: any): void {
-    console.log('Page changed to: ' + event.page);
-    console.log('Number items per page: ' + event.itemsPerPage);
+    this.pageIndex = event.page;
   }
 }
