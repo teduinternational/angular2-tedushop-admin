@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AppUser } from '../../core/domain/app-user';
 import { UserService } from '../../core/services/user.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { UtilityService } from '../../core/services/utility.service';
+import { MessageContstants } from '../../core/common/message.constants';
+
+
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-user',
@@ -16,23 +20,27 @@ export class UserComponent implements OnInit {
   public filter: string;
 
   public users: AppUser[];
-  constructor(private router: Router, private userService: UserService, private notificationService: NotificationService) {
-   }
+  constructor(
+    private userService: UserService,
+    private notificationService: NotificationService,
+    private utilityService: UtilityService) {
+  }
 
   ngOnInit() {
     this.userService.getAllPaging(this.pageIndex, this.pageSize, this.filter).subscribe((response: any) => {
       this.users = response.Items;
       this.pageIndex = response.PageIndex;
-      console.log(response.Items);
     }, error => {
       if (error.status == 401) {
-        this.notificationService.printErrorMessage('Bạn phải đăng nhập lại');
-        this.router.navigate(['/login']);
+        this.notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
+        this.utilityService.navigateToLogin();
       }
     });
   }
-  public setPage(pageNo: number): void {
-    this.pageIndex = pageNo;
+  public delete(id: string) {
+    this.notificationService.printConfirmationDialog(MessageContstants.CONFIRM_DELETE_MSG, function () {
+
+    });
   }
 
   public pageChanged(event: any): void {

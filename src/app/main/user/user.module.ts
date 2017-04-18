@@ -6,6 +6,7 @@ import { PaginationModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 import {UserService} from './../../core/services/user.service';
 import {DataService} from './../../core/services/data.service';
+import {UtilityService} from './../../core/services/utility.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import {DataService} from './../../core/services/data.service';
     UserRouter
   ],
   declarations: [UserComponent],
-  providers:[UserService,DataService]
+  providers:[UserService,DataService,UtilityService]
 })
 export class UserModule { }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { UrlConstants } from '../../core/common/url.constants';
 
 @Injectable()
 export class UtilityService {
@@ -18,9 +19,8 @@ export class UtilityService {
   navigate(path: string) {
     this._router.navigate([path]);
   }
-
-  navigateToSignIn() {
-    this.navigate('/login');
+  navigateToLogin() {
+    this._router.navigate([UrlConstants.LOGIN]);
   }
 
 }

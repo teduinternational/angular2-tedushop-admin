@@ -41,11 +41,11 @@ export class NotificationService {
             // language resources 
             glossary: {
                 // dialogs default title
-                title: 'AlertifyJS',
+                title: 'Xác nhận',
                 // ok button text
-                ok: 'OK',
+                ok: 'Đồng ý',
                 // cancel button text
-                cancel: 'Cancel'
+                cancel: 'Bỏ qua'
             },
 
             // theme settings
