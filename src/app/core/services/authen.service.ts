@@ -27,6 +27,7 @@ export class AuthenService {
         let user: LoggedInUser = response.json();
         if (user && user.access_token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.removeItem(SystemConstants.CURRENT_USER);
           localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
         }
       });

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Injectable()
 export class DataService {
     private headers: Headers;
-    constructor(public http: Http,private route: Router, public authenService: AuthenService) {
+    constructor(public http: Http, private route: Router, public authenService: AuthenService) {
         this.headers = new Headers();
     }
     setAuthenHeader() {
@@ -16,17 +16,20 @@ export class DataService {
     }
 
     get(uri: string) {
-            return this.http.get(SystemConstants.BASE_API + uri, { headers: this.headers })
-                .map((response: Response) => response.json());
+        return this.http.get(SystemConstants.BASE_API + uri, { headers: this.headers })
+            .map((response: Response) => response.json());
 
     }
 
     post(uri: string, data?: any) {
         return this.http.post(SystemConstants.BASE_API + uri, data, { headers: this.headers });
     }
+    put(uri: string, data?: any) {
+        return this.http.put(SystemConstants.BASE_API + uri, data, { headers: this.headers });
+    }
 
-    delete(uri: string, id: number) {
-        return this.http.delete(SystemConstants.BASE_API + uri + '/' + id.toString(), { headers: this.headers })
+    delete(uri: string, id: any) {
+        return this.http.delete(SystemConstants.BASE_API + uri + '/' + id, { headers: this.headers })
             .map(response => <any>(<Response>response).json())
     }
 

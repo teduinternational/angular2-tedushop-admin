@@ -6,7 +6,7 @@
   <div class="title_right">
     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Tìm kiếm...">
+        <input type="text" name="filter" [(ngModel)]="filter" (keypress)="search()" class="form-control" placeholder="Tìm kiếm...">
         <span class="input-group-btn">
         <button class="btn btn-default" type="button">Tìm!</button>
         </span>
@@ -25,7 +25,7 @@
     <div class="x_title">
       <ul class="nav navbar-right panel_toolbox">
         <li>
-          <button class="btn btn-success">Thêm mới</button>
+          <button class="btn btn-success" (click)="showAdd()">Thêm mới</button>
         </li>
       </ul>
       <div class="clearfix"></div>
@@ -45,7 +45,7 @@
             <td>{{item.Name}}</td>
             <td>{{item.Description}}</td>
             <td>
-              <button class="btn btn-primary"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+              <button class="btn btn-primary" (click)="showEdit(item.Id)"> <i class="fa fa-pencil-square-o"  aria-hidden="true"></i></button>
               <button class="btn btn-danger" (click)="delete(item.Id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </td>
           </tr>
@@ -59,4 +59,43 @@
     </div>
   </div>
 
+</div>
+<div bsModal #addEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Thêm mới / Chỉnh sửa</h4>
+        <button type="button" class="close pull-right" (click)="addEditModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal form-label-left input_mask"  #addEditForm="ngForm" (ngSubmit)="saveChanges()" *ngIf="entity">
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên nhóm</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input type="hidden" [(ngModel)]="entity.Id" name="id" />
+              <input type="text" [(ngModel)]="entity.Name" name="name" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Mô tả </label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <textarea class="form-control" [(ngModel)]="entity.Description" name="description" rows="3"></textarea>
+            </div>
+          </div>
+
+          <div class="ln_solid"></div>
+          <div class="form-group">
+            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+              <button type="button" (click)="addEditModal.hide()" class="btn btn-primary">Hủy bỏ</button>
+              <button type="submit" class="btn btn-success">Cập nhật</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
