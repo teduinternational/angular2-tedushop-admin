@@ -4,7 +4,6 @@ import { RoleComponent } from './role.component';
 import { RoleRouter } from './role.routes';
 import { PaginationModule,ModalModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { RoleService } from './../../core/services/role.service';
 import { DataService } from './../../core/services/data.service';
 import { UtilityService } from './../../core/services/utility.service';
 @NgModule({
@@ -16,6 +15,6 @@ import { UtilityService } from './../../core/services/utility.service';
     ModalModule.forRoot()
   ],
   declarations: [RoleComponent],
-  providers: [RoleService, DataService, UtilityService]
+  providers: [DataService, UtilityService]
 })
 export class RoleModule { }

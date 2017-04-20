@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppRole } from '../../core/domain/app.role';
-import { RoleService } from '../../core/services/role.service';
+import { DataService } from '../../core/services/data.service';
+
 import { NotificationService } from '../../core/services/notification.service';
 import { UtilityService } from '../../core/services/utility.service';
 import { MessageContstants } from '../../core/common/message.constants';
@@ -21,76 +22,67 @@ export class RoleComponent implements OnInit {
 
   public roles: AppRole[];
   constructor(
-    private roleService: RoleService,
+    private _dataService: DataService,
     private notificationService: NotificationService,
     private utilityService: UtilityService) {
+    this._dataService.setAuthenHeader();
   }
 
   ngOnInit() {
     this.search();
   }
+  //Load data
   public search() {
-    this.roleService.getAllPaging(this.pageIndex, this.pageSize, this.filter).subscribe((response: any) => {
-      this.roles = response.Items;
-      this.pageIndex = response.PageIndex;
-    }, error => {
-      if (error.status == 401) {
-        this.notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
-        this.utilityService.navigateToLogin();
-      }
-    });
+    this._dataService.get('/api/appRole/getlistpaging?page='
+      + this.pageIndex + '&pageSize='
+      + this.pageSize + '&filter='
+      + this.filter)
+      .subscribe((response: any) => {
+        this.roles = response.Items;
+        this.pageIndex = response.PageIndex;
+      }, error => this._dataService.handleError(error));
   }
+  //Show add form
   public showAdd() {
     this.entity = new AppRole();
     this.addEditModal.show();
   }
+  //Show edit form
   public showEdit(id: string) {
     this.entity = this.roles.find(x => x.Id == id);
     this.addEditModal.show();
   }
+  //Action delete
   public deleteConfirm(id: string): void {
-    this.roleService.delete(id).subscribe((response: any) => {
+    this._dataService.delete('/api/appRole/delete', 'id', id).subscribe((response: any) => {
       this.notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
-
       this.search();
-    }, error => {
-      if (error.status == 401) {
-        this.notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
-        this.utilityService.navigateToLogin();
-      }
-    });
+    }, error => this._dataService.handleError(error));
   }
+  //Click button delete turn on confirm
   public delete(id: string) {
     this.notificationService.printConfirmationDialog(MessageContstants.CONFIRM_DELETE_MSG, () => this.deleteConfirm(id));
   }
-  public saveChanges() {
-    console.log(this.entity);
-    if (this.entity.Id == undefined) {
-      this.roleService.add(this.entity).subscribe((response: any) => {
-        this.search();
-        this.addEditModal.hide();
-        this.notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
-      }, error => {
-        if (error.status == 401) {
-          this.notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
-          this.utilityService.navigateToLogin();
-        }
-      });
+  //Save change for modal popup
+  public saveChanges(valid: boolean) {
+    if (valid) {
+      if (this.entity.Id == undefined) {
+        this._dataService.post('/api/appRole/add', JSON.stringify(this.entity)).subscribe((response: any) => {
+          this.search();
+          this.addEditModal.hide();
+          this.notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
+        }, error => this._dataService.handleError(error));
+      }
+      else {
+        this._dataService.put('/api/appRole/update', JSON.stringify(this.entity)).subscribe((response: any) => {
+          this.search();
+          this.addEditModal.hide();
+          this.notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
+        }, error => this._dataService.handleError(error));
 
+      }
     }
-    else {
-      this.roleService.update(this.entity).subscribe((response: any) => {
-        this.search();
-        this.addEditModal.hide();
-        this.notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
-      }, error => {
-        if (error.status == 401) {
-          this.notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
-          this.utilityService.navigateToLogin();
-        }
-      });
 
-    }
   }
   public pageChanged(event: any): void {
     this.pageIndex = event.page;
