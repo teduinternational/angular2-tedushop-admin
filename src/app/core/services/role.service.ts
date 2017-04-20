@@ -18,7 +18,7 @@ export class RoleService {
 
   }
   delete(id: string): Observable<any> {
-    return this._dataService.delete('/api/appRole/delete', id);
+    return this._dataService.delete('/api/appRole/delete','id', id);
   }
 
   getOne(id: string): Observable<AppRole> {

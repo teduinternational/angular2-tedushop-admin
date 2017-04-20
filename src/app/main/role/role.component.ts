@@ -48,24 +48,48 @@ export class RoleComponent implements OnInit {
     this.entity = this.roles.find(x => x.Id == id);
     this.addEditModal.show();
   }
-  public delete(id: string) {
-    this.notificationService.printConfirmationDialog(MessageContstants.CONFIRM_DELETE_MSG, function () {
-      this.roleService.delete(id);
+  public deleteConfirm(id: string): void {
+    this.roleService.delete(id).subscribe((response: any) => {
       this.notificationService.printSuccessMessage(MessageContstants.DELETED_OK_MSG);
 
+      this.search();
+    }, error => {
+      if (error.status == 401) {
+        this.notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
+        this.utilityService.navigateToLogin();
+      }
     });
+  }
+  public delete(id: string) {
+    this.notificationService.printConfirmationDialog(MessageContstants.CONFIRM_DELETE_MSG, () => this.deleteConfirm(id));
   }
   public saveChanges() {
     console.log(this.entity);
     if (this.entity.Id == undefined) {
-      this.roleService.add(this.entity);
-      this.addEditModal.hide();
-      this.notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
+      this.roleService.add(this.entity).subscribe((response: any) => {
+        this.search();
+        this.addEditModal.hide();
+        this.notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
+      }, error => {
+        if (error.status == 401) {
+          this.notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
+          this.utilityService.navigateToLogin();
+        }
+      });
+
     }
     else {
-      this.roleService.update(this.entity);
-      this.addEditModal.hide();
-      this.notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
+      this.roleService.update(this.entity).subscribe((response: any) => {
+        this.search();
+        this.addEditModal.hide();
+        this.notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
+      }, error => {
+        if (error.status == 401) {
+          this.notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
+          this.utilityService.navigateToLogin();
+        }
+      });
+
     }
   }
   public pageChanged(event: any): void {

@@ -10,6 +10,8 @@ export class DataService {
     private headers: Headers;
     constructor(public http: Http, private route: Router, public authenService: AuthenService) {
         this.headers = new Headers();
+        this.headers.append('Content-Type', 'application/json');
+
     }
     setAuthenHeader() {
         this.headers.append("Authorization", "Bearer " + this.authenService.getLoggedInUser().access_token);
@@ -28,8 +30,8 @@ export class DataService {
         return this.http.put(SystemConstants.BASE_API + uri, data, { headers: this.headers });
     }
 
-    delete(uri: string, id: any) {
-        return this.http.delete(SystemConstants.BASE_API + uri + '/' + id, { headers: this.headers })
+    delete(uri: string,key : string, id: string) {
+        return this.http.delete(SystemConstants.BASE_API + uri +  "/?" + key + "=" + id, { headers: this.headers })
             .map(response => <any>(<Response>response).json())
     }
 
