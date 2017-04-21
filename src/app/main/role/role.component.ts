@@ -86,5 +86,6 @@ export class RoleComponent implements OnInit {
   }
   public pageChanged(event: any): void {
     this.pageIndex = event.page;
+    this.search();
   }
 }

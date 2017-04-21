@@ -22,6 +22,7 @@ export class DataService {
 
     }
     setAuthenHeader() {
+        console.log(this.authenService.getLoggedInUser().access_token)
         this.headers.append("Authorization", "Bearer " + this.authenService.getLoggedInUser().access_token);
     }
 

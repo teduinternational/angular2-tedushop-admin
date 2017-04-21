@@ -24,6 +24,7 @@
         "../node_modules/font-awesome/css/font-awesome.min.css",
         "../node_modules/alertifyjs/build/css/alertify.css",
         "../node_modules/alertifyjs/build/css/themes/default.css",
+         "../node_modules/switchery/standalone/switchery.css",
         "../src/assets/css/custom.css",
         "styles.css"
       ],
@@ -31,7 +32,8 @@
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "../node_modules/fastclick/lib/fastclick.js",
-        "../node_modules/alertifyjs/build/alertify.js"
+        "../node_modules/alertifyjs/build/alertify.js",
+        "../node_modules/switchery/standalone/switchery.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
