@@ -12,8 +12,6 @@ import { NotificationService } from './notification.service';
 @Injectable()
 export class DataService {
     private headers: Headers;
-    public activeProject: ReplaySubject<any> = new ReplaySubject(1);
-
     constructor(public http: Http, private route: Router,
         public authenService: AuthenService,
         private notificationService: NotificationService, private utilityService: UtilityService) {
@@ -21,30 +19,42 @@ export class DataService {
         this.headers.append('Content-Type', 'application/json');
 
     }
-    setAuthenHeader() {
-        console.log(this.authenService.getLoggedInUser().access_token)
-        this.headers.append("Authorization", "Bearer " + this.authenService.getLoggedInUser().access_token);
-    }
-
     get(uri: string) {
+        this.headers.delete('Authorization');
+        this.headers.append("Authorization", "Bearer " + this.authenService.getLoggedInUser().access_token);
         return this.http.get(SystemConstants.BASE_API + uri, { headers: this.headers })
             .map(this.extractData);
 
     }
 
     post(uri: string, data?: any) {
+        this.headers.delete('Authorization');
+
+        this.headers.append("Authorization", "Bearer " + this.authenService.getLoggedInUser().access_token);
         return this.http.post(SystemConstants.BASE_API + uri, data, { headers: this.headers })
             .map(this.extractData);
     }
     put(uri: string, data?: any) {
+        this.headers.delete('Authorization');
+
+        this.headers.append("Authorization", "Bearer " + this.authenService.getLoggedInUser().access_token);
         return this.http.put(SystemConstants.BASE_API + uri, data, { headers: this.headers })
             .map(this.extractData);
     }
 
     delete(uri: string, key: string, id: string) {
+        this.headers.delete('Authorization');
+
+        this.headers.append("Authorization", "Bearer " + this.authenService.getLoggedInUser().access_token);
         return this.http.delete(SystemConstants.BASE_API + uri + "/?" + key + "=" + id, { headers: this.headers })
             .map(this.extractData);
 
+    }
+    postFile(uri: string, data?: any) {
+        let newHeader = new Headers();
+        newHeader.append("Authorization", "Bearer " + this.authenService.getLoggedInUser().access_token);
+        return this.http.post(SystemConstants.BASE_API + uri, data, { headers: newHeader })
+            .map(this.extractData);
     }
     private extractData(res: Response) {
         let body = res.json();
@@ -52,6 +62,7 @@ export class DataService {
     }
     public handleError(error: any) {
         if (error.status == 401) {
+            localStorage.removeItem(SystemConstants.CURRENT_USER);
             this.notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
             this.utilityService.navigateToLogin();
         }

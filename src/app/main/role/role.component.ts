@@ -25,7 +25,6 @@ export class RoleComponent implements OnInit {
     private _dataService: DataService,
     private notificationService: NotificationService,
     private utilityService: UtilityService) {
-    this._dataService.setAuthenHeader();
   }
 
   ngOnInit() {

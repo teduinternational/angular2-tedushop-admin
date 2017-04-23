@@ -48,7 +48,7 @@
             <td>{{item.Email}}</td>
             <td>{{item.BirthDay | date}}</td>
             <td>
-              <button class="btn btn-primary"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+              <button class="btn btn-primary" (click)="showEdit(item.Id)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 
               <button class="btn btn-danger" (click)="delete(item.Id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </td>
@@ -80,7 +80,7 @@
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Họ tên</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3" name="name" class="form-control">
+              <input type="text" #name="ngModel" [(ngModel)]="entity.FullName" required minlength="3" name="name" class="form-control">
               <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)" class="text-danger">
                 Bạn phải nhập tên ít nhất 3 ký tự
               </small>
@@ -89,71 +89,70 @@
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Tài khoản</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3" name="name" class="form-control">
-              <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)" class="text-danger">
-                Bạn phải nhập tên ít nhất 3 ký tự
+              <input type="text" #username="ngModel" [(ngModel)]="entity.UserName" required name="username" class="form-control">
+              <small [hidden]="username.valid || (username.pristine && !addEditForm.submitted)" class="text-danger">
+                Bạn phải nhập tài khoản
               </small>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Mật khẩu</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3" name="name" class="form-control">
-              <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)" class="text-danger">
-                Bạn phải nhập tên ít nhất 3 ký tự
+              <input type="password" #password="ngModel" [(ngModel)]="entity.Password" required minlength="6" name="password" class="form-control">
+              <small [hidden]="password.valid || (password.pristine && !addEditForm.submitted)" class="text-danger">
+                Bạn phải nhập tên ít nhất 6 ký tự
               </small>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Xác nhận mật khẩu</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3" name="name" class="form-control">
-              <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)" class="text-danger">
-                Bạn phải nhập tên ít nhất 3 ký tự
+              <input type="password" #confirmpassword="ngModel" [(ngModel)]="entity.ConfirmPassword" required validateEqual="password"
+                minlength="6" name="confirmpassword" class="form-control">
+              <small [hidden]="confirmpassword.valid || (confirmpassword.pristine && !addEditForm.submitted)" class="text-danger">
+                Xác nhận mật khẩu sai
               </small>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3" name="name" class="form-control">
-              <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)" class="text-danger">
-                Bạn phải nhập tên ít nhất 3 ký tự
+              <input type="text" #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="entity.Email" required
+                name="email" class="form-control">
+              <small [hidden]="email.valid || (email.pristine && !addEditForm.submitted)" class="text-danger">
+                Bạn phải nhập email
               </small>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Địa chỉ</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3" name="name" class="form-control">
-              <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)" class="text-danger">
-                Bạn phải nhập tên ít nhất 3 ký tự
-              </small>
+              <input type="text" #address="ngModel" [(ngModel)]="entity.Address" name="address" class="form-control">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Điện thoại</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3" name="name" class="form-control">
-              <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)" class="text-danger">
-                Bạn phải nhập tên ít nhất 3 ký tự
+              <input type="text" #phonenumber="ngModel" [(ngModel)]="entity.PhoneNumber" required name="phonenumber" class="form-control">
+              <small [hidden]="phonenumber.valid || (phonenumber.pristine && !addEditForm.submitted)" class="text-danger">
+                Bạn phải nhập số điện thoại
               </small>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Avatar</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3" name="name" class="form-control">
-             
+              <input type="file" #avatar name="avatar" class="form-control">
+              <p class="help-block label label-danger"> chỉ hỗ trợ định dạng *.png, *.jpg, *.jpeg </p>
+
+              <input type="hidden" [(ngModel)]="entity.Avatar" name="avatarUrl" />
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày sinh</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #name="ngModel" [(ngModel)]="entity.Name" required minlength="3" name="name" class="form-control">
-              <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)" class="text-danger">
-                Bạn phải nhập tên ít nhất 3 ký tự
-              </small>
+              <input type="text" #birthday="ngModel" (selected)="selectedBirthDay($event)" daterangepicker [options]="dateOptions" [(ngModel)]="entity.BirthDay" name="birthday"
+                class="form-control">
             </div>
           </div>
           <div class="form-group">
@@ -161,23 +160,21 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div id="gender" class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
+                              <input type="radio" #gender="ngModel" [(ngModel)]="entity.Gender" name="gender" value="entity.Gender"> &nbsp; Nam &nbsp;
                             </label>
                 <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="gender" value="female"> Female
+                              <input type="radio" #gender="ngModel" [(ngModel)]="entity.Gender" name="gender"  value="entity.Gender"> Nữ
                             </label>
               </div>
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Thuộc</label>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Thuộc nhóm</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <div class="checkbox">
-                <label><input type="checkbox" class="flat"> Unchecked </label>
+              <div class="checkbox" *ngFor="let role of roles">
+                <label><input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="role.Checked" [value]="role.Id"  class="flat"> {{role.Description}} </label>
               </div>
-              <small [hidden]="name.valid || (name.pristine && !addEditForm.submitted)" class="text-danger">
-                Bạn phải nhập tên ít nhất 3 ký tự
-              </small>
+
             </div>
           </div>
           <div class="ln_solid"></div>

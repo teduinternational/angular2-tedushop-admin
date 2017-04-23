@@ -17,7 +17,7 @@ export class AuthenService {
       "&password=" + encodeURIComponent(password) +
       "&grant_type=password";
     let headers = new Headers();
-    headers.append('Accept', 'application/json');
+   // headers.append('Accept', 'application/json');
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     let options = new RequestOptions({ headers: headers });
     return this._http
