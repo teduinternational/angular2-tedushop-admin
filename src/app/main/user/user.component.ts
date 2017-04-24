@@ -44,7 +44,7 @@ export class UserComponent implements OnInit {
   }
   //Show edit form
   public showEdit(id: string) {
-    this.entity = this.users.find(x => x.Id == id);
+    this.entity =  this.users.find(x => x.Id == id); 
     this.addEditModal.show();
   }
   ngOnInit() {

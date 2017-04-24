@@ -32,7 +32,7 @@ $(document).ready(function() {
         $RIGHT_COL.css('min-height', contentHeight);
     };
 
-    $SIDEBAR_MENU.find('a').on('click', function(ev) {
+    $SIDEBAR_MENU.find('a').off('click').on('click', function(ev) {
         var $li = $(this).parent();
 
         if ($li.is('.active')) {
@@ -56,7 +56,7 @@ $(document).ready(function() {
     });
 
     // toggle small or large menu
-    $MENU_TOGGLE.on('click', function() {
+    $MENU_TOGGLE.off('click').on('click', function() {
         if ($BODY.hasClass('nav-md')) {
             $SIDEBAR_MENU.find('li.active ul').hide();
             $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
@@ -99,7 +99,7 @@ $(document).ready(function() {
 
 // Panel toolbox
 $(document).ready(function() {
-    $('.collapse-link').on('click', function() {
+    $('.collapse-link').off('click').on('click', function() {
         var $BOX_PANEL = $(this).closest('.x_panel'),
             $ICON = $(this).find('i'),
             $BOX_CONTENT = $BOX_PANEL.find('.x_content');
@@ -220,7 +220,7 @@ function countChecked() {
 
 // Accordion
 $(document).ready(function() {
-    $(".expand").on("click", function () {
+    $(".expand").off('click').on("click", function () {
         $(this).next().slideToggle(200);
         $expand = $(this).find(">:first-child");
 
