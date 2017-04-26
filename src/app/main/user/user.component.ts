@@ -44,11 +44,13 @@ export class UserComponent implements OnInit {
   }
   //Show edit form
   public showEdit(id: string) {
-    this.entity =  this.users.find(x => x.Id == id); 
-    this.addEditModal.show();
+    this._dataService.get('/api/appUser/detail/' + id).subscribe((response: any) => {
+      this.entity = response;
+      this.roles = response.Roles;
+      this.addEditModal.show();
+    }, error => this._dataService.handleError(error));
   }
   ngOnInit() {
-    this.loadRoles();
     this.search();
   }
   public search() {
@@ -97,13 +99,15 @@ export class UserComponent implements OnInit {
     }
 
   }
+  public selectRole(option, event) {
+    for (var i = 0; i < this.roles.length; i++) {
+      if (this.roles[i].Id == event.target.value) {
+        this.roles[i].Checked = event.target.checked;
+      }
+    }
+  }
   public pageChanged(event: any): void {
     this.pageIndex = event.page;
     this.search();
-  }
-  private loadRoles() {
-    this._dataService.get('/api/appRole/getlistall').subscribe((response: any) => {
-      this.roles = response;
-    }, error => this._dataService.handleError(error));
   }
 }

@@ -151,28 +151,25 @@
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày sinh</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #birthday="ngModel" (selected)="selectedBirthDay($event)" daterangepicker [options]="dateOptions" [(ngModel)]="entity.BirthDay" name="birthday"
-                class="form-control">
+              <input type="text" #birthday="ngModel" (selected)="selectedBirthDay($event)" daterangepicker [options]="dateOptions" [(ngModel)]="entity.BirthDay"
+                name="birthday" class="form-control">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Giới tính</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <div id="gender" class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" #gender="ngModel" [(ngModel)]="entity.Gender" name="gender" value="entity.Gender"> &nbsp; Nam &nbsp;
-                            </label>
-                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" #gender="ngModel" [(ngModel)]="entity.Gender" name="gender"  value="entity.Gender"> Nữ
-                            </label>
-              </div>
+
+              <input type="radio" class="flat" #gender="ngModel" name="gender"  [(ngModel)]="entity.Gender"  value="entity.Gender" checked="" required /> Nam
+
+              <input type="radio" class="flat" #gender="ngModel"  name="gender"  [(ngModel)]="entity.Gender"  value="entity.Gender" /> Nữ
+
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Thuộc nhóm</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
               <div class="checkbox" *ngFor="let role of roles">
-                <label><input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="role.Checked" [value]="role.Id"  class="flat"> {{role.Description}} </label>
+                <label><input type="checkbox" value="role.Id"  (change)="selectRole(option, $event)"  class="flat"> {{role.Description}} </label>
               </div>
 
             </div>
