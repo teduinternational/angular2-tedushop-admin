@@ -6,9 +6,8 @@ import { NotificationService } from '../../core/services/notification.service';
 import { UtilityService } from '../../core/services/utility.service';
 import { MessageContstants } from '../../core/common/message.constants';
 import { UploadService } from '../../core/services/upload.service';
-
 import { ModalDirective } from 'ngx-bootstrap/modal';
-
+import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-user',
@@ -18,7 +17,7 @@ import { Router } from '@angular/router';
 export class UserComponent implements OnInit {
   @ViewChild('addEditModal') public addEditModal: ModalDirective;
   @ViewChild("avatar") avatar;
-
+   public optionsModel: number[];
   public totalRow: number;
   public pageIndex: number = 1;
   public pageSize: number = 20;
@@ -26,6 +25,10 @@ export class UserComponent implements OnInit {
   public filter: string;
   public entity: AppUser;
   public users: AppUser[];
+  public myOptions: IMultiSelectOption[] = [
+            { id: 1, name: 'Option 1' },
+            { id: 2, name: 'Option 2' },
+        ];;
   public roles: AppRole[];
   public dateOptions: any = {
     locale: { format: 'DD/MM/YYYY' },
@@ -94,17 +97,10 @@ export class UserComponent implements OnInit {
           }
         });
       }
-
-
     }
-
   }
-  public selectRole(option, event) {
-    for (var i = 0; i < this.roles.length; i++) {
-      if (this.roles[i].Id == event.target.value) {
-        this.roles[i].Checked = event.target.checked;
-      }
-    }
+  onChange() {
+    console.log(this.optionsModel);
   }
   public pageChanged(event: any): void {
     this.pageIndex = event.page;

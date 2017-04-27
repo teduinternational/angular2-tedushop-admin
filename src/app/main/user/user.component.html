@@ -159,18 +159,21 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Giới tính</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
 
-              <input type="radio" class="flat" #gender="ngModel" name="gender"  [(ngModel)]="entity.Gender"  value="entity.Gender" checked="" required /> Nam
+              <input type="radio" class="flat" #gender="ngModel" name="gender" [(ngModel)]="entity.Gender" value="entity.Gender" checked=""
+                required /> Nam
 
-              <input type="radio" class="flat" #gender="ngModel"  name="gender"  [(ngModel)]="entity.Gender"  value="entity.Gender" /> Nữ
+              <input type="radio" class="flat" #gender="ngModel" name="gender" [(ngModel)]="entity.Gender" value="entity.Gender" />              Nữ
 
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Thuộc nhóm</label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-              <div class="checkbox" *ngFor="let role of roles">
-                <label><input type="checkbox" value="role.Id"  (change)="selectRole(option, $event)"  class="flat"> {{role.Description}} </label>
-              </div>
+            <div class="col-md-9 col-sm-9 col-xs-12" *ngIf="roles">
+              <!--<div class="checkbox" *ngFor="let role of roles">
+                <label><input type="checkbox" #role_{{role.Name}} (change)="role.Checked = this.checked"  class="flat"> {{role.Description}} </label>
+              </div>-->
+            <ss-multiselect-dropdown [ngModelOptions]="{standalone: true}" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+
 
             </div>
           </div>
