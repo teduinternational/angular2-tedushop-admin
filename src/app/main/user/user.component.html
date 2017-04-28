@@ -95,7 +95,7 @@
               </small>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" *ngIf="!entity.Id">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Mật khẩu</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
               <input type="password" #password="ngModel" [(ngModel)]="entity.Password" required minlength="6" name="password" class="form-control">
@@ -104,7 +104,7 @@
               </small>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group"  *ngIf="!entity.Id">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Xác nhận mật khẩu</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
               <input type="password" #confirmpassword="ngModel" [(ngModel)]="entity.ConfirmPassword" required validateEqual="password"
@@ -141,40 +141,39 @@
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Avatar</label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-xs-12">
               <input type="file" #avatar name="avatar" class="form-control">
               <p class="help-block label label-danger"> chỉ hỗ trợ định dạng *.png, *.jpg, *.jpeg </p>
-
               <input type="hidden" [(ngModel)]="entity.Avatar" name="avatarUrl" />
+            </div>
+
+            <div class="col-md-3 col-sm-3 col-xs-12" *ngIf="entity.Avatar">
+              <img [src]="entity.Avatar" width="128" />
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày sinh</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #birthday="ngModel" (selected)="selectedBirthDay($event)" daterangepicker [options]="dateOptions" [(ngModel)]="entity.BirthDay"
-                name="birthday" class="form-control">
+              <input type="text" #birthday="ngModel" daterangepicker [options]="dateOptions" [(ngModel)]="entity.BirthDay" name="birthday"
+                class="form-control">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Giới tính</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
 
-              <input type="radio" class="flat" #gender="ngModel" name="gender" [(ngModel)]="entity.Gender" value="entity.Gender" checked=""
+              <input type="radio" class="flat" #gender="ngModel" name="gender" [ngModel]="{checked: entity.Gender == 'True'}" value="entity.Gender"
                 required /> Nam
 
-              <input type="radio" class="flat" #gender="ngModel" name="gender" [(ngModel)]="entity.Gender" value="entity.Gender" />              Nữ
+              <input type="radio" class="flat" #gender="ngModel" name="gender" [ngModel]="{checked:entity.Gender == 'False'}" value="entity.Gender"
+              /> Nữ
 
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Thuộc nhóm</label>
-            <div class="col-md-9 col-sm-9 col-xs-12" *ngIf="roles">
-              <!--<div class="checkbox" *ngFor="let role of roles">
-                <label><input type="checkbox" #role_{{role.Name}} (change)="role.Checked = this.checked"  class="flat"> {{role.Description}} </label>
-              </div>-->
-            <ss-multiselect-dropdown [ngModelOptions]="{standalone: true}" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
-
-
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <ss-multiselect-dropdown [ngModelOptions]="{standalone: true}" [options]="allRoles" [(ngModel)]="myRoles"></ss-multiselect-dropdown>
             </div>
           </div>
           <div class="ln_solid"></div>

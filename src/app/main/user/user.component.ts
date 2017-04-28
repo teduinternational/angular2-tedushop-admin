@@ -9,6 +9,7 @@ import { UploadService } from '../../core/services/upload.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 import { Router } from '@angular/router';
+declare var moment: any;
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -17,7 +18,7 @@ import { Router } from '@angular/router';
 export class UserComponent implements OnInit {
   @ViewChild('addEditModal') public addEditModal: ModalDirective;
   @ViewChild("avatar") avatar;
-   public optionsModel: number[];
+  public myRoles: string[] = [];
   public totalRow: number;
   public pageIndex: number = 1;
   public pageSize: number = 20;
@@ -25,10 +26,7 @@ export class UserComponent implements OnInit {
   public filter: string;
   public entity: AppUser;
   public users: AppUser[];
-  public myOptions: IMultiSelectOption[] = [
-            { id: 1, name: 'Option 1' },
-            { id: 2, name: 'Option 2' },
-        ];;
+  public allRoles: IMultiSelectOption[] = [];
   public roles: AppRole[];
   public dateOptions: any = {
     locale: { format: 'DD/MM/YYYY' },
@@ -49,11 +47,16 @@ export class UserComponent implements OnInit {
   public showEdit(id: string) {
     this._dataService.get('/api/appUser/detail/' + id).subscribe((response: any) => {
       this.entity = response;
-      this.roles = response.Roles;
+       this.myRoles = [];
+      for (let role of response.Roles) {
+        this.myRoles.push(role);
+      }
+      this.entity.BirthDay = moment(new Date(response.BirthDay)).format('DD/MM/YYYY');
       this.addEditModal.show();
     }, error => this._dataService.handleError(error));
   }
   ngOnInit() {
+    this.loadRoles();
     this.search();
   }
   public search() {
@@ -70,37 +73,47 @@ export class UserComponent implements OnInit {
       }, error => this._dataService.handleError(error));
     });
   }
-  public selectedBirthDay(value: any) {
-    this.entity.BirthDay = value.start.format('DD/MM/YYYY');
+
+  private loadRoles() {
+    this._dataService.get('/api/appRole/getlistall').subscribe((response: any[]) => {
+      this.allRoles = [];
+      for (let role of response) {
+        this.allRoles.push({ id: role.Name, name: role.Description });
+      }
+    }, error => this._dataService.handleError(error));
   }
   //Save change for modal popup
   public saveChanges(valid: boolean) {
     if (valid) {
+      this.entity.Roles = this.myRoles;
       let fi = this.avatar.nativeElement;
       if (fi.files.length > 0) {
         this.uploadService.postWithFile('/api/upload/saveImage', null, fi.files).then((imageUrl: string) => {
           this.entity.Avatar = imageUrl;
         }).then(() => {
-          if (this.entity.Id == undefined) {
-            this._dataService.post('/api/appUser/add', JSON.stringify(this.entity)).subscribe((response: any) => {
-              this.search();
-              this.addEditModal.hide();
-              this.notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
-            });
-          }
-          else {
-            this._dataService.put('/api/appUser/update', JSON.stringify(this.entity)).subscribe((response: any) => {
-              this.search();
-              this.addEditModal.hide();
-              this.notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
-            }, error => this._dataService.handleError(error));
-          }
+          this.saveData();
         });
+      }
+      else {
+        this.saveData();
       }
     }
   }
-  onChange() {
-    console.log(this.optionsModel);
+  private saveData() {
+    if (this.entity.Id == undefined) {
+      this._dataService.post('/api/appUser/add', JSON.stringify(this.entity)).subscribe((response: any) => {
+        this.search();
+        this.addEditModal.hide();
+        this.notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
+      });
+    }
+    else {
+      this._dataService.put('/api/appUser/update', JSON.stringify(this.entity)).subscribe((response: any) => {
+        this.search();
+        this.addEditModal.hide();
+        this.notificationService.printSuccessMessage(MessageContstants.UPDATED_OK_MSG);
+      }, error => this._dataService.handleError(error));
+    }
   }
   public pageChanged(event: any): void {
     this.pageIndex = event.page;
