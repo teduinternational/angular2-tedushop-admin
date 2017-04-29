@@ -47,7 +47,7 @@ export class UserComponent implements OnInit {
   public showEdit(id: string) {
     this._dataService.get('/api/appUser/detail/' + id).subscribe((response: any) => {
       this.entity = response;
-       this.myRoles = [];
+      this.myRoles = [];
       for (let role of response.Roles) {
         this.myRoles.push(role);
       }
@@ -118,5 +118,8 @@ export class UserComponent implements OnInit {
   public pageChanged(event: any): void {
     this.pageIndex = event.page;
     this.search();
+  }
+  public selectGender(event) {
+    this.entity.Gender = event.target.value
   }
 }

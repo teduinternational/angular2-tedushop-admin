@@ -104,7 +104,7 @@
               </small>
             </div>
           </div>
-          <div class="form-group"  *ngIf="!entity.Id">
+          <div class="form-group" *ngIf="!entity.Id">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Xác nhận mật khẩu</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
               <input type="password" #confirmpassword="ngModel" [(ngModel)]="entity.ConfirmPassword" required validateEqual="password"
@@ -162,11 +162,9 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Giới tính</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
 
-              <input type="radio" class="flat" #gender="ngModel" name="gender" [ngModel]="{checked: entity.Gender == 'True'}" value="entity.Gender"
-                required /> Nam
+              <input type="radio" (change)="selectGender($event)" #gender="ngModel" [checked]="entity.Gender=='True'" name="gender" [ngModel]="entity.Gender" value="True" required />              Nam
 
-              <input type="radio" class="flat" #gender="ngModel" name="gender" [ngModel]="{checked:entity.Gender == 'False'}" value="entity.Gender"
-              /> Nữ
+              <input type="radio" (change)="selectGender($event)"  #gender="ngModel" [checked]="entity.Gender=='False'" name="gender" [ngModel]="entity.Gender" value="False" />              Nữ
 
             </div>
           </div>
