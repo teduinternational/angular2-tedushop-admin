@@ -17,7 +17,7 @@ export class AppComponent implements AfterViewChecked {
   ngAfterViewChecked() {
     var s = document.createElement("script");
     s.type = "text/javascript";
-    s.src = "../src/assets/js/custom.js";
+    s.src = "../assets/js/custom.js";
     this.elementRef.nativeElement.appendChild(s);
   }
 }

@@ -12,11 +12,17 @@ export class SidebarMenuComponent implements OnInit {
   public functions: Function[];
 
   constructor(private dataService: DataService) {
-   }
+  }
 
   ngOnInit() {
-    this.dataService.get('/api/function/getlistall').subscribe((response: any) => {
-      this.functions = response;
+    this.dataService.get('/api/function/getlisthierarchy').subscribe((response: any[]) => {
+      this.functions = response.sort((n1, n2) => {
+        if (n1.DisplayOrder > n2.DisplayOrder)
+          return 1;
+        else if (n1.DisplayOrder < n2.DisplayOrder)
+          return -1;
+        return 0;
+      });
     }, error => this.dataService.handleError(error));
   }
 

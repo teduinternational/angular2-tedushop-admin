@@ -29,16 +29,27 @@ export class UtilityService {
     for (var i = 0; i < arr.length; i += 1) {
       let node = arr[i];
       node.children = [];
-      map[node.Id] = i; // use map to look-up the parents
+      map[node.ID] = i; // use map to look-up the parents
       if (node.ParentId !== null) {
         arr[map[node.ParentId]].children.push(node);
       } else {
         roots.push(node);
       }
     }
-    return roots;
+    var sortedRoots = roots.sort((n1, n2) => {
+      if (n1.DisplayOrder > n2.DisplayOrder) {
+        return 1;
+      }
+
+      if (n1 < n2) {
+        return -1;
+      }
+
+      return 0;
+    });
+    return sortedRoots;
   }
-  
+
 
   MakeSeoTitle(input: string) {
     if (input == undefined || input == '')

@@ -2,6 +2,7 @@
   <div class="menu_section">
  
     <ul class="nav side-menu">
+      <li><a><i class="fa fa-home"></i> Trang chủ</a>
       <li *ngFor="let item of functions"><a><i class="fa {{item.IconCss}}"></i> {{item.Name}} <span *ngIf="item.ChildFunctions.length>0" class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <li *ngFor="let subItem of item.ChildFunctions"><a routerLink="{{subItem.URL}}" routerLinkActive="active">{{subItem.Name}}</a></li>
