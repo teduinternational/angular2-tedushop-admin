@@ -154,7 +154,7 @@
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày sinh</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #birthday="ngModel" daterangepicker [options]="dateOptions" [(ngModel)]="entity.BirthDay" name="birthday"
+              <input type="text" #birthday="ngModel" daterangepicker [options]="dateOptions" (selected)="selectedDate($event)" [(ngModel)]="entity.BirthDay" name="birthday"
                 class="form-control">
             </div>
           </div>

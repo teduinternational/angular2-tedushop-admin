@@ -60,8 +60,8 @@ export class FunctionComponent implements OnInit {
   public savePermission(valid: boolean, _permission: any[]) {
     if (valid) {
       var data = {
-        permissions: this._permission,
-        functionId: this.functionId
+        Permissions: this._permission,
+        FunctionId: this.functionId
       }
       this._dataService.post('/api/appRole/savePermission', JSON.stringify(data)).subscribe((response: any) => {
         this.notificationService.printSuccessMessage(response);
