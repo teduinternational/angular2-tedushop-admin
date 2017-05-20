@@ -26,7 +26,7 @@
       <div class="x_title">
         <ul class="nav navbar-right panel_toolbox">
           <li>
-            <button class="btn btn-success" (click)="showAdd()">Thêm mới</button>
+            <button *ngIf="_authenService.hasPermission('USER','create')" class="btn btn-success" (click)="showAdd()">Thêm mới</button>
           </li>
         </ul>
         <div class="clearfix"></div>
@@ -48,9 +48,9 @@
             <td>{{item.Email}}</td>
             <td>{{item.BirthDay | date}}</td>
             <td>
-              <button class="btn btn-primary" (click)="showEdit(item.Id)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+              <button class="btn btn-primary" *ngIf="_authenService.hasPermission('USER','update')" (click)="showEdit(item.Id)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 
-              <button class="btn btn-danger" (click)="delete(item.Id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              <button class="btn btn-danger" *ngIf="_authenService.hasPermission('USER','delete')" (click)="delete(item.Id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </td>
           </tr>
 

@@ -45,8 +45,8 @@
             <td>{{item.Name}}</td>
             <td>{{item.Description}}</td>
             <td>
-              <button class="btn btn-primary" (click)="showEdit(item.Id)"> <i class="fa fa-pencil-square-o"  aria-hidden="true"></i></button>
-              <button class="btn btn-danger" (click)="delete(item.Id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              <button *ngIf="item.Name!='Admin'" class="btn btn-primary" (click)="showEdit(item.Id)"> <i class="fa fa-pencil-square-o"  aria-hidden="true"></i></button>
+              <button *ngIf="item.Name!='Admin'" class="btn btn-danger" (click)="delete(item.Id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </td>
           </tr>
 

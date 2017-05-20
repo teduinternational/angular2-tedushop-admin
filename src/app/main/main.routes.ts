@@ -1,11 +1,13 @@
 import { MainComponent } from './main.component';
 import { MainModule } from './main.module';
 import { Routes } from '@angular/router';
+import { AuthGuard } from './../core/guards/auth.guard';
+
 export const routes: Routes = [
   {
     path: '', component: MainComponent, children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', loadChildren: './home/home.module#HomeModule' },
+      { path: 'home', loadChildren: './home/home.module#HomeModule', canActivate: [AuthGuard] },
       { path: 'product', loadChildren: './product/product.module#ProductModule' },
       { path: 'product-category', loadChildren: './product-category/product-category.module#ProductCategoryModule' },
       { path: 'activity', loadChildren: './activity/activity.module#ActivityModule' },

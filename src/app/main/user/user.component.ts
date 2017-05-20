@@ -4,6 +4,8 @@ import { AppRole } from '../../core/domain/app.role';
 import { DataService } from '../../core/services/data.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { UtilityService } from '../../core/services/utility.service';
+import { AuthenService } from '../../core/services/authen.service';
+
 import { MessageContstants } from '../../core/common/message.constants';
 import { UploadService } from '../../core/services/upload.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -36,7 +38,12 @@ export class UserComponent implements OnInit {
   constructor(
     private _dataService: DataService,
     private notificationService: NotificationService,
-    private utilityService: UtilityService, private uploadService: UploadService) {
+    private _authenService: AuthenService,
+    private utilityService: UtilityService,
+    private uploadService: UploadService) {
+    if (_authenService.checkAccess('USER') == false) {
+      utilityService.navigateToLogin();
+    }
   }
   //Show add form
   public showAdd() {
@@ -125,6 +132,6 @@ export class UserComponent implements OnInit {
 
   public selectedDate(value: any) {
     console.log(value);
-    this.entity.BirthDay =  moment(new Date(value.end._d)).format('DD/MM/YYYY');
+    this.entity.BirthDay = moment(new Date(value.end._d)).format('DD/MM/YYYY');
   }
 }
