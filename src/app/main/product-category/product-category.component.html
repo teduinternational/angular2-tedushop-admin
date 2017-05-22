@@ -85,7 +85,8 @@
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Thứ tự</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="number" #displayOrder="ngModel" [(ngModel)]="entity.DisplayOrder" required name="displayOrder" class="form-control"/>
+              <input type="number" #displayOrder="ngModel" [(ngModel)]="entity.DisplayOrder" required name="displayOrder" class="form-control"
+              />
               <small [hidden]="displayOrder.valid || (displayOrder.pristine && !addEditForm.submitted)" class="text-danger">
                 Bạn phải nhập thứ tự
               </small>
@@ -94,14 +95,13 @@
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Thứ tự trang chủ</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="number" #homeOrder="ngModel" [(ngModel)]="entity.HomeOrder" required name="homeOrder" class="form-control"
-              />
+              <input type="number" #homeOrder="ngModel" [(ngModel)]="entity.HomeOrder" required name="homeOrder" class="form-control" />
               <small [hidden]="homeOrder.valid || (displayOrder.pristine && !addEditForm.submitted)" class="text-danger">
                 Bạn phải nhập thứ tự
               </small>
             </div>
           </div>
-           <div class="form-group">
+          <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Hình ảnh</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <input type="file" #image name="image" class="form-control">
@@ -118,7 +118,7 @@
             <div class="col-md-9 col-sm-9 col-xs-12">
               <select class="form-control" name="parentId" [(ngModel)]="entity.ParentID">
                  <option value="">--Chọn chức năng cha--</option>
-                  <option *ngFor="let x of _functions" [value]="x.ID">{{x.Name}}</option>
+                  <option *ngFor="let x of _productCategories" [value]="x.ID">{{x.Name}}</option>
                 </select>
               <input type="hidden" [(ngModel)]="entity.ParentID" name="parentId" class="form-control" />
             </div>
@@ -127,14 +127,15 @@
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Từ khóa</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #metaKeyword="ngModel" [(ngModel)]="entity.MetaKeyword"  name="keyword" class="form-control" />
-             
+              <input type="text" #metaKeyword="ngModel" [(ngModel)]="entity.MetaKeyword" name="keyword" class="form-control" />
+
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Mô tả SEO</label>
             <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" #metaDescription="ngModel" [(ngModel)]="entity.MetaDescription" required minlength="3" name="metaDescription" class="form-control" />
+              <input type="text" #metaDescription="ngModel" [(ngModel)]="entity.MetaDescription" required minlength="3" name="metaDescription"
+                class="form-control" />
               <small [hidden]="metaDescription.valid || (metaDescription.pristine && !addEditForm.submitted)" class="text-danger">
                 Bạn phải nhập tên ít nhất 3 ký tự
               </small>

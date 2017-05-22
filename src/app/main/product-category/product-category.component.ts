@@ -6,6 +6,7 @@ import { UtilityService } from '../../core/services/utility.service';
 import { MessageContstants } from '../../core/common/message.constants';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { TreeComponent } from 'angular-tree-component';
+import { TreeviewItem, TreeviewConfig } from 'ng2-dropdown-treeview';
 
 @Component({
   selector: 'app-product-category',
@@ -22,6 +23,7 @@ export class ProductCategoryComponent implements OnInit {
   public entity: any;
   public functionId: string;
   public _productCategoryHierachy: any[];
+  public _productCategories: any[];
   constructor(
     private _dataService: DataService,
     private notificationService: NotificationService,
@@ -30,12 +32,21 @@ export class ProductCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.search();
+    this.getListForDropdown();
   }
+  public Treevi
   //Load data
   public search() {
     this._dataService.get('/api/productCategory/getall?filter=' + this.filter)
       .subscribe((response: any[]) => {
         this._productCategoryHierachy = this.utilityService.Unflatten2(response);
+        this._productCategories = response;
+      }, error => this._dataService.handleError(error));
+  }
+  public getListForDropdown() {
+    this._dataService.get('/api/productCategory/getallhierachy')
+      .subscribe((response: any[]) => {
+        this._productCategories = response;
       }, error => this._dataService.handleError(error));
   }
   //Show add form
@@ -82,6 +93,10 @@ export class ProductCategoryComponent implements OnInit {
       }
     }
 
+  }
+
+  public onSelectedChange($event) {
+    console.log($event);
   }
 
 }
