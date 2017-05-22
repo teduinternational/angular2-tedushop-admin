@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate([UrlConstants.HOME]);
       },
       error => {
+        console.log(error);
         this.notificationService.printErrorMessage(MessageContstants.SYSTEM_ERROR_MSG);
         this.loading = false;
       });

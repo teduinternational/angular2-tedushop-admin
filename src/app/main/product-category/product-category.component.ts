@@ -34,7 +34,9 @@ export class ProductCategoryComponent implements OnInit {
     this.search();
     this.getListForDropdown();
   }
-  public Treevi
+  public createAlias(){
+    this.entity.Alias = this.utilityService.MakeSeoTitle(this.entity.Name);
+  }
   //Load data
   public search() {
     this._dataService.get('/api/productCategory/getall?filter=' + this.filter)

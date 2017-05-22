@@ -66,7 +66,13 @@ export class DataService {
             this.notificationService.printErrorMessage(MessageContstants.LOGIN_AGAIN_MSG);
             this.utilityService.navigateToLogin();
         }
+        else if (error.status == 401) {
+            localStorage.removeItem(SystemConstants.CURRENT_USER);
+            this.notificationService.printErrorMessage(MessageContstants.FORBIDDEN);
+            this.utilityService.navigateToLogin();
+        }
         else {
+            console.log(error);
             let errMsg = (error.message) ? error.message :
                 error.status ? `${error.status} - ${error.statusText}` : 'Lỗi hệ thống';
             this.notificationService.printErrorMessage(errMsg);
