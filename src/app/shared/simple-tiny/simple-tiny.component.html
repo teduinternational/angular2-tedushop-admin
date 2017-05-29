@@ -1,0 +1,5 @@
+<textarea id="{{elementId}}"></textarea>
+<iframe id="form_target" name="form_target" style="display:none"></iframe>
+<form id="uploadForm" action="/api/upload/SaveImage?type=product"  target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
+    <input name="image"type="file" onchange="$('#uploadForm').submit();this.value='';">
+</form>
