@@ -286,47 +286,48 @@
         <form class="form-horizontal form-label-left input_mask" *ngIf="imageEntity" novalidate #imageForm="ngForm" (ngSubmit)="saveProductImage(imageForm.valid)">
           <div class="form-group row">
             <div class="col-xs-3">
-              <label for="ex1">Hình ảnh</label>
-              <input class="form-control" id="ex1" type="text">
+              <label>Chọn ảnh</label>
+              <input type="file" required #imagePath name="imagePath" class="form-control">
+              <p class="help-block label label-danger"> chỉ hỗ trợ định dạng *.png, *.jpg, *.jpeg </p>
+              <input type="hidden" [(ngModel)]="imageEntity.Path" name="imagePath" />
+              <input type="hidden" [(ngModel)]="imageEntity.ProductId" name="productId" />
             </div>
             <div class="col-xs-3">
               <label for="ex2">Mô tả</label>
-              <input class="form-control" id="ex2" type="text">
+              <input class="form-control" name="caption" [(ngModel)]="imageEntity.Caption" type="text">
             </div>
             <div class="col-xs-4">
-              <button id="ex4" class="btn btn-primary mt-24">Thêm</button>
+              <button type="submit" class="btn btn-primary mt-24" [disabled]="!imageForm.valid">Thêm</button>
             </div>
           </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>
-                  Hình ảnh
-                </th>
-                <th>
-                  Mô tả
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let image of productImages">
-                <td>
-                  {{image.Path}}
-                </td>
-                <td>
-                  {{image.Caption}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="ln_solid"></div>
-          <div class="form-group">
-            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-              <button type="button" (click)="imageManageModal.hide()" class="btn btn-primary">Đóng</button>
-            </div>
-          </div>
-
         </form>
+        <table class="table" *ngIf="productImages && productImages.length > 0">
+          <thead>
+            <tr>
+              <th>
+                Hình ảnh
+              </th>
+              <th>
+                Mô tả
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let image of productImages">
+              <td>
+                <img [src]="baseFolder + image.Path" width="100" />
+              </td>
+              <td>
+                {{image.Caption}}
+              </td>
+              <td>
+                <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Xóa số lượng" (click)="deleteImage(image.ID)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ln_solid"></div>
       </div>
     </div>
   </div>
@@ -348,58 +349,68 @@
           *ngIf="quantityEntity">
           <div class="form-group row">
             <div class="col-xs-3">
-              <label for="ex1">Màu sắc</label>
-              <input class="form-control" id="ex1" type="text">
+              <label>Màu sắc</label>
+              <select class="form-control" required #colorId="ngModel" name="colorId" [(ngModel)]="quantityEntity.ColorId">
+                <option value="">--Chọn màu--</option>
+                <option *ngFor="let x of colors" [value]="x.ID">{{x.Name}}</option>
+              </select>
+              <input type="hidden" [(ngModel)]="quantityEntity.ProductId" name="productId" />
+
+              <small [hidden]="colorId.valid || (colorId.pristine && !quantityForm.submitted)" class="text-danger">
+                Bạn phải chọn màu sắc
+              </small>
             </div>
             <div class="col-xs-3">
-              <label for="ex2">Kích thước</label>
-              <input class="form-control" id="ex2" type="text">
+              <label>Cỡ</label>
+              <select class="form-control" required #sizeId="ngModel" name="sizeId" [(ngModel)]="quantityEntity.SizeId">
+                <option value="">--Chọn cỡ--</option>
+                <option *ngFor="let x of sizes" [value]="x.ID">{{x.Name}}</option>
+              </select>
+              <small [hidden]="sizeId.valid || (sizeId.pristine && !quantityForm.submitted)" class="text-danger">
+                Bạn phải nhập cỡ
+              </small>
             </div>
             <div class="col-xs-2">
-              <label for="ex3">Số lượng</label>
-              <input class="form-control" id="ex3" type="text">
+              <label>Số lượng</label>
+              <input class="form-control" type="number" #quantity="ngModel" name="quantity" [(ngModel)]="quantityEntity.Quantity" required>
+              <small [hidden]="quantity.valid || (quantity.pristine && !quantityForm.submitted)" class="text-danger">
+                Bạn phải nhập số lượng
+              </small>
             </div>
             <div class="col-xs-4">
-              <button id="ex4" class="btn btn-primary mt-24">Thêm</button>
+              <button type="submit" [disabled]="!quantityForm.valid" class="btn btn-primary mt-24">Thêm</button>
             </div>
           </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>
-                  Màu sắc
-                </th>
-                <th>
-                  Kích thước
-                </th>
-                <th>Số lượng</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of productQuantities">
-                <td>
-                  {{item.Color.Name}}
-                </td>
-                <td>
-                  {{item.Size.Name}}
-                </td>
-                <td>{{item.Quantity}}</td>
-                <td>
-
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="ln_solid"></div>
-          <div class="form-group">
-            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-              <button type="button" (click)="quantityManageModal.hide()" class="btn btn-primary">Hủy bỏ</button>
-              <button type="submit" class="btn btn-success" [disabled]="!quantityForm.valid">Cập nhật</button>
-            </div>
-          </div>
-
         </form>
+        <table class="table" *ngIf="productQuantities && productQuantities.length > 0">
+          <thead>
+            <tr>
+              <th>
+                Màu sắc
+              </th>
+              <th>
+                Kích thước
+              </th>
+              <th>Số lượng</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of productQuantities">
+              <td>
+                {{item.Color.Name}}
+              </td>
+              <td>
+                {{item.Size.Name}}
+              </td>
+              <td>{{item.Quantity}}</td>
+              <td>
+                <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Xóa số lượng" (click)="deleteQuantity(item.ProductId,item.ColorId,item.SizeId)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ln_solid"></div>
       </div>
     </div>
   </div>
