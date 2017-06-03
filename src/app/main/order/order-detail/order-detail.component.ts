@@ -4,6 +4,8 @@ import { DataService } from '../../../core/services/data.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { UtilityService } from '../../../core/services/utility.service';
 import { MessageContstants } from '../../../core/common/message.constants';
+import { SystemConstants } from '../../../core/common/system.constants';
+
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -15,6 +17,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class OrderDetailComponent implements OnInit {
   public orderDetails: any[];
   public entity: any;
+  public orderId: number;
+    public baseFolder: string = SystemConstants.BASE_API;
+
   constructor(private utilityService: UtilityService,
     private _dataService: DataService,
     private activatedRoute: ActivatedRoute,
@@ -23,12 +28,17 @@ export class OrderDetailComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      let orderId = params['id'];
-      this.loadOrder(params['id']);
+      this.orderId = params['id'];
+      this.loadOrder(this.orderId);
 
-      this.loadOrderDetail(params['id']);
+      this.loadOrderDetail(this.orderId);
     });
 
+  }
+  public exportToExcel() {
+    this._dataService.get('/api/order/exportExcel/' + this.orderId.toString()).subscribe((response: any) => {
+      window.open(this.baseFolder + response.Message);
+    }, error => this._dataService.handleError(error));
   }
   public loadOrder(id: number) {
     this._dataService.get('/api/order/detail/' + id.toString()).subscribe((response: any) => {
