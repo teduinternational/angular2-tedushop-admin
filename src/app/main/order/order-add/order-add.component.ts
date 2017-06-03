@@ -13,7 +13,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class OrderAddComponent implements OnInit {
   @ViewChild('addEditModal') public addEditModal: ModalDirective;
-  public entity: any = { Status:true};
+  public entity: any = { Status: true };
   public sizeId: number = null;
   public colorId: number = null;
   public colors: any[];
@@ -82,16 +82,18 @@ export class OrderAddComponent implements OnInit {
         Quantity: 0,
         Price: 0
       };
-
-      this.notificationService.printSuccessMessage(MessageContstants.CREATED_OK_MSG);
     }
   }
 
   //Action delete
-  public deleteDetail(item: any): void {
-    var index = this.orderDetails.findIndex(item);
-    if (index > -1) {
-      this.orderDetails.splice(index, 1);
+  public deleteDetail(item: any) {
+    for (var index = 0; index < this.orderDetails.length; index++) {
+      let orderDetail = this.orderDetails[index];
+      if (orderDetail.ProductID == item.ProductID
+        && orderDetail.ColorId == item.ColorId
+        && orderDetail.SizeId == item.SizeId) {
+        this.orderDetails.splice(index, 1);
+      }
     }
   }
 }

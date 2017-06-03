@@ -5,6 +5,7 @@ import { NotificationService } from '../../../core/services/notification.service
 import { UtilityService } from '../../../core/services/utility.service';
 import { MessageContstants } from '../../../core/common/message.constants';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-order-detail',
@@ -13,16 +14,30 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class OrderDetailComponent implements OnInit {
   public orderDetails: any[];
-
+  public entity: any;
   constructor(private utilityService: UtilityService,
     private _dataService: DataService,
+    private activatedRoute: ActivatedRoute,
     private notificationService: NotificationService) { }
 
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      let orderId = params['id'];
+      this.loadOrder(params['id']);
+
+      this.loadOrderDetail(params['id']);
+    });
+
   }
+  public loadOrder(id: number) {
+    this._dataService.get('/api/order/detail/' + id.toString()).subscribe((response: any) => {
+      this.entity = response;
+    }, error => this._dataService.handleError(error));
+  }
+
   public loadOrderDetail(id: number) {
-    this._dataService.get('/api/order/getalldetails?id=' + id.toString()).subscribe((response: any[]) => {
+    this._dataService.get('/api/order/getalldetails/' + id.toString()).subscribe((response: any[]) => {
       this.orderDetails = response;
     }, error => this._dataService.handleError(error));
   }
