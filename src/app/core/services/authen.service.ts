@@ -90,10 +90,10 @@ export class AuthenService {
       var _userData = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
       _user = new LoggedInUser(
         _userData.access_token,
-        _userData.userName,
-        _userData.FullName,
-        _userData.UserName,
-        _userData.Token,
+        _userData.username,
+        _userData.fullName,
+        _userData.email,
+        _userData.avatar,
         _userData.permissions, _userData.roles);
     }
     else {

@@ -11,7 +11,7 @@ export const routes: Routes = [
       { path: 'product', loadChildren: './product/product.module#ProductModule' },
       { path: 'product-category', loadChildren: './product-category/product-category.module#ProductCategoryModule' },
       { path: 'activity', loadChildren: './activity/activity.module#ActivityModule' },
-      { path: 'announement', loadChildren: './announement/announement.module#AnnounementModule' },
+      { path: 'announcement', loadChildren: './announcement/announcement.module#AnnouncementModule' },
       { path: 'contact', loadChildren: './contact/contact.module#ContactModule' },
       { path: 'order', loadChildren: './order/order.module#OrderModule' },
 

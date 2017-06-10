@@ -11,7 +11,7 @@ import { UploadService } from '../../core/services/upload.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 import { Router } from '@angular/router';
-declare var moment: any;
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',

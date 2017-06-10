@@ -50,12 +50,12 @@ export class DataService {
             .map(this.extractData);
 
     }
-    deleteWithMultiParams(uri: string,params) {
+    deleteWithMultiParams(uri: string, params) {
         this.headers.delete('Authorization');
 
         this.headers.append("Authorization", "Bearer " + this.authenService.getLoggedInUser().access_token);
-        var paramStr : string = '';
-        for(let param in params){
+        var paramStr: string = '';
+        for (let param in params) {
             paramStr += param + "=" + params[param] + '&';
         }
         return this.http.delete(SystemConstants.BASE_API + uri + "/?" + paramStr, { headers: this.headers })
