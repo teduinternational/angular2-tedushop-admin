@@ -21,7 +21,6 @@ export class SignalrService {
     this.connectionExists = false;
     // create hub connection  
     this.connection = $.hubConnection(SystemConstants.BASE_API);
-    console.log(_authenService.getLoggedInUser());
     this.connection.qs = { "UserName": _authenService.getLoggedInUser().username };
     // create new proxy as name already given in top  
     this.proxy = this.connection.createHubProxy(this.proxyName);

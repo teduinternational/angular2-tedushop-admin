@@ -22,7 +22,8 @@ export const routes: Routes = [
       { path: 'post-category', loadChildren: './post-category/post-category.module#PostCategoryModule' },
       { path: 'role', loadChildren: './role/role.module#RoleModule' },
       { path: 'setting', loadChildren: './setting/setting.module#SettingModule' },
-      { path: 'user', loadChildren: './user/user.module#UserModule' }
+      { path: 'user', loadChildren: './user/user.module#UserModule' },
+      { path: 'report', loadChildren: './report/report.module#ReportModule' }
     ]
 
   }

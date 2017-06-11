@@ -61,7 +61,7 @@ export class TopMenuComponent implements OnInit {
     // finally our service method to call when response received from server event and transfer response to some variable to be shwon on the browser.  
     this._signalRService.announcementReceived.subscribe((announcement: any) => {
       this._ngZone.run(() => {
-        announcement.CreatedDate = moment(moment().format("YYYYMMDD"), "YYYYMMDD").fromNow();
+        announcement.CreatedDate = moment(moment(announcement.CreatedDate).format("YYYYMMDD"), "YYYYMMDD").fromNow();
         self.announcements.push(announcement);
       });
     });
