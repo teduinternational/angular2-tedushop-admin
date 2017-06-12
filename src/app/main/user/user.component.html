@@ -46,7 +46,7 @@
             <td>{{item.FullName}}</td>
             <td>{{item.UserName}}</td>
             <td>{{item.Email}}</td>
-            <td>{{item.BirthDay | date}}</td>
+            <td>{{item.BirthDay | date: 'dd/MM/yyyy'}}</td>
             <td>
               <button class="btn btn-primary" *ngIf="_authenService.hasPermission('USER','update')" (click)="showEdit(item.Id)"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 
@@ -75,7 +75,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal form-label-left input_mask" novalidate #addEditForm="ngForm" (ngSubmit)="saveChanges(addEditForm.valid)"
+        <form class="form-horizontal form-label-left input_mask" novalidate #addEditForm="ngForm" (ngSubmit)="saveChanges(addEditForm)"
           *ngIf="entity">
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Họ tên</label>
