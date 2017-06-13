@@ -30,7 +30,6 @@ export class AuthenService {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.removeItem(SystemConstants.CURRENT_USER);
           localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
-
         }
       });
   }
