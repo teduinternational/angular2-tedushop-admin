@@ -11,22 +11,23 @@
             "url": "http://localhost:4200",
             "webRoot": "${workspaceRoot}",
             "sourceMaps": true,
-            "userDataDir": "${workspaceRoot}/out/chrome"
+            //"userDataDir": "${workspaceRoot}/out/chrome",
+            "userDataDir": "${workspaceRoot}/.vscode/chrome",
+            "sourceMapPathOverrides": {
+                "webpack:///./*": "${webRoot}/*"
+            }
         },
         {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceRoot}\\serve",
-            "outFiles": []
-        },
-        {
-            "type": "node",
+            "name": "Attach to Chrome, with sourcemaps",
+            "type": "chrome",
             "request": "attach",
-            "name": "Attach to Process",
-            "address": "localhost",
-            "port": 5858,
-            "outFiles": []
-        }
+            "url": "http://localhost:4200",
+            "port": 9222,
+            "sourceMaps": true,
+            "webRoot": "${workspaceRoot}",
+            "sourceMapPathOverrides": {
+                "webpack:///./*": "${webRoot}/*"
+            }
+        },
     ]
 }
