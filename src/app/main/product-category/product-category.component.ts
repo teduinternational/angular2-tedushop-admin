@@ -6,7 +6,6 @@ import { UtilityService } from '../../core/services/utility.service';
 import { MessageContstants } from '../../core/common/message.constants';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { TreeComponent } from 'angular-tree-component';
-import { TreeviewItem, TreeviewConfig } from 'ng2-dropdown-treeview';
 
 @Component({
   selector: 'app-product-category',
@@ -17,8 +16,6 @@ export class ProductCategoryComponent implements OnInit {
 
   @ViewChild('addEditModal') public addEditModal: ModalDirective;
 
-  @ViewChild(TreeComponent)
-  private treeProductCategory: TreeComponent;
   public filter: string = '';
   public entity: any;
   public functionId: string;

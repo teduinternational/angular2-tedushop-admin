@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { UrlConstants } from '../../core/common/url.constants';
 import { AuthenService } from './authen.service';
-import { TreeviewItem } from 'ng2-dropdown-treeview';
 
 @Injectable()
 export class UtilityService {
@@ -76,21 +75,7 @@ export class UtilityService {
     });
     return sortedRoots;
   }
-  GetDropdownTreeItems = (arr: any[]): TreeviewItem[] => {
-    let map = {};
-    let roots: TreeviewItem[] = [];
-    for (var i = 0; i < arr.length; i += 1) {
-      let node = arr[i];
-      node.children = [];
-      map[node.ID] = i; // use map to look-up the parents
-      if (node.ParentID !== null) {
-        arr[map[node.ParentID]].children.push({ text: node.Name, value: node.ID, checked: false });
-      } else {
-        roots.push(new TreeviewItem({ text: node.Name, value: node.ID, checked: false }));
-      }
-    }
-    return roots;
-  }
+
   MakeSeoTitle(input: string) {
     if (input == undefined || input == '')
       return '';
